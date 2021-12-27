@@ -1,21 +1,17 @@
 local source = {}
 
----Return this source is available in current context or not. (Optional)
----@return boolean
-function source:is_available()
+source.is_available = function()
   return vim.bo.filetype == 'tidal'
 end
 
----Return the debug name of this source. (Optional)
----@return string
-function source:get_debug_name()
-  return 'debug name'
+source.new = function()
+  local self = setmetatable({}, { __index = source })
+  self.commit_items = nil
+  self.insert_items = nil
+  return self
 end
 
----Invoke completion. (Required)
----@param params cmp.SourceCompletionApiParams
----@param callback fun(response: lsp.CompletionResponse|nil)
-function source:complete(params, callback)
+source.complete = function(self, params, callback)
   callback({
     {label = 'January'}, {label = 'February'}, {label = 'March'}, {label = 'April'}, {label = 'May'}, {label = 'June'},
     {label = 'July'}, {label = 'August'}, {label = 'September'}, {label = 'October'}, {label = 'November'},
@@ -23,18 +19,10 @@ function source:complete(params, callback)
   })
 end
 
----Resolve completion item. (Optional)
----@param completion_item lsp.CompletionItem
----@param callback fun(completion_item: lsp.CompletionItem|nil)
-function source:resolve(completion_item, callback)
-  callback(completion_item)
-end
-
----Executecommand after item was accepted.
----@param completion_item lsp.CompletionItem
----@param callback fun(completion_item: lsp.CompletionItem|nil)
-function source:execute(completion_item, callback)
-  callback(completion_item)
+source.option = function(_, params)
+  return vim.tbl_extend('force', {
+    insert = false,
+  }, params.option)
 end
 
 return source
