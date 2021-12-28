@@ -1,18 +1,12 @@
-local open = io.open
+local cmp = require('cmp')
+local Job = require 'plenary.job'
 
 local source = {}
 
-local function read_file(path)
-    local file = open(path, "rb") -- r read mode and b binary mode
-    if not file then return nil end
-    local content = file:read "*a" -- *a or *all reads the whole file
-    file:close()
-    return content
-end
-
-local get_absolute_path = function()
-  local str = debug.getinfo(2, 'S').source:sub(2)
-  return str:match('(.*/)')
+local split_string = function(input_string)
+  local t = {}
+  for str in string.gmatch(input_string, '([^' .. '%s' .. ']+)') do table.insert(t, str) end
+  return t
 end
 
 source.is_available = function()
@@ -20,41 +14,62 @@ source.is_available = function()
 end
 
 source.new = function()
-  local self = setmetatable({}, {__index = source})
-  self.commit_items = nil
-  self.insert_items = nil
-  return self
+	return setmetatable({}, { __index = source })
 end
 
-source.complete = function(_, _, callback)
-  local working_directory = get_absolute_path()
-  local file_name = 'tidal.json'
-  local path = string.format('%s%s', working_directory, file_name)
+source.complete = function(_, params, callback)
+  local input = string.sub(params.context.cursor_before_line, params.offset)
 
-  local ok, data = pcall(read_file, path)
-  if not ok then
-    print(path)
-    vim.notify 'Failed to read json file'
-    return
-  end
+  Job:new({
+    command = 'hoogle',
+    args = {'+tidal', input},
 
-  local ok, parsed = pcall(vim.json.decode, data)
-  if not ok then
-    vim.notify 'Failed to parse json file'
-    return
-  end
+    on_exit = function(job)
+      local completions_table = job:result()
 
-  local items = {}
-  for _, item in ipairs(parsed) do
-    -- item.body = string.gsub(item.body or '', '\r', '')
+      local items = {}
+      for _, completion in ipairs(completions_table) do
+        local completion_table = split_string(completion)
+        local label = completion_table[2]
 
-    table.insert(items, {
-      label = string.format('%s', item.name),
-      -- documentation = {kind = 'html', value = string.format('%s\n\n%s', item.display_html, item.module)}
-    })
-  end
+        local item = {label = label, kind = cmp.lsp.CompletionItemKind.Function}
+        table.insert(items, item)
+      end
 
-  callback {items = items, isIncomplete = true}
+      callback {items = items, isIncomplete = true}
+    end
+  }):start()
+end
+
+-- Search for documentation when item is selected
+source.resolve = function(_, completion_item, callback)
+  Job:new({
+    command = 'hoogle',
+    args = {'-i', '+tidal', completion_item.label},
+
+    on_exit = function(job)
+      local documenation_table = job:result()
+      local description_table = {}
+
+      local type = documenation_table[1]
+      local module = documenation_table[2]
+
+      -- Get description from documenation_table
+      for i = 3, table.maxn(documenation_table), 1 do table.insert(description_table, documenation_table[i]) end
+
+      -- Convert description_table to string
+      local description_string = table.concat(description_table, '\n')
+
+      if documenation_table ~= nil then
+        completion_item.documentation = {
+          kind = 'markdown',
+          value = string.format('**Type:** %s\n**Module:** %s\n\n%s', type, module, description_string)
+        }
+      end
+
+      callback(completion_item)
+    end
+  }):start()
 end
 
 source.option = function(_, params)
