@@ -47,6 +47,7 @@ end
 -- List files of selected folder in documentation
 source.resolve = function(_, completion_item, callback)
   scan.scan_dir_async(completion_item.path, {
+    search_pattern = {'%.wav$', '%.WAV$', '%.flac$', '%.FLAC$', '%.aiff$', '%.AIFF$'},
     on_exit = function(files)
       local files_table = {}
       for index, file in ipairs(files) do
