@@ -59,7 +59,7 @@ source.resolve = function(_, completion_item, callback)
       local documentation_string = table.concat(files_table, '\n')
       completion_item.documentation = {
         kind = 'markdown',
-        value = string.format('**Files**: %s\n\n%s', file_count, documentation_string)
+        value = string.format('**Samples**: %s\n\n%s', file_count, documentation_string)
       }
 
       callback(completion_item)
