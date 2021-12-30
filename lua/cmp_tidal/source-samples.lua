@@ -50,7 +50,7 @@ source.resolve = function(_, completion_item, callback)
       local files_table = {}
       for index, file in ipairs(files) do
         local file_name = file:match('^.+/(.+)$')
-        table.insert(files_table, string.format('**\\*%s ::** %s', index, file_name))
+        table.insert(files_table, string.format('**:%s ::** %s', index, file_name))
       end
 
       -- Add documentation

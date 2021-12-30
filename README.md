@@ -86,6 +86,6 @@ require("cmp").setup({
 ## Roadmap
 
 - [ ] New option: `custom_samples` to pass additional custom sample folders
-- [ ] Autocompletion for sample number (bd -> bd\*1)
+- [ ] Autocompletion for sample number (bd -> bd:1)
 - [ ] Caching
 
