@@ -14,7 +14,7 @@ Autocompletion for [Tidal Cycles](https://tidalcycles.org/) powered by [nvim-cmp
 
 ### Nvim-cmp
 
-Please have a look at the offical repo [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
+Please have a look at the [offical repo](https://github.com/hrsh7th/nvim-cmp).
 
 ### Cmp-tidal
 
