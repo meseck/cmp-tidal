@@ -7,6 +7,7 @@ Autocompletion for [Tidal Cycles](https://tidalcycles.org/) powered by [nvim-cmp
 ## Requirements
 - [neovim](https://github.com/neovim/neovim)
 - [nvim-cmp](https://github.com/hrsh7th/nvim-cmp)
+- [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
 - [hoogle](http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hoogle)
 
 ## Installation
