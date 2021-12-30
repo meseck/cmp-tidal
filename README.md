@@ -35,12 +35,10 @@ hoogle generate
 
 ```lua
 require("cmp").setup({
-    ...
     sources = {
-        { name = "cmp_tidal" },
-        -- more sources
+        { name = 'tidal' },
+        -- ...more sources
     }
-    ...
 })
 ```
 
