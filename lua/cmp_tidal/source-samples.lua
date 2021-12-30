@@ -4,7 +4,7 @@ local scan = require('plenary.scandir')
 
 local source = {}
 
-local default_options = {sample_path = utils.get_samples_path()}
+local default_option = {dirt_samples = utils.get_dirt_samples_path()}
 
 source.is_available = function()
   return vim.bo.filetype == 'tidal'
@@ -15,20 +15,17 @@ source.new = function()
 end
 
 source._validate_options = function(_, params)
-  local opts = vim.tbl_deep_extend('keep', params.option, default_options)
-  vim.validate({sample_path = {opts.sample_path, 'string'}})
+  local opts = vim.tbl_deep_extend('keep', params.option, default_option)
+  vim.validate({dirt_samples = {opts.dirt_samples, 'string'}})
   return opts
-end
-
-source.get_trigger_characters = function()
-  return {'"', ' '}
 end
 
 source.complete = function(self, params, callback)
   local opts = self:_validate_options(params);
-  local samples_path = opts.sample_path
+  local dirt_samples = opts.dirt_samples
 
-  scan.scan_dir_async(samples_path, {
+  scan.scan_dir_async(dirt_samples, {
+    depth = 1,
     only_dirs = true,
     on_exit = function(folders)
       -- Folders
@@ -47,6 +44,7 @@ end
 -- List files of selected folder in documentation
 source.resolve = function(_, completion_item, callback)
   scan.scan_dir_async(completion_item.path, {
+    depth = 1,
     search_pattern = {'%.wav$', '%.WAV$', '%.flac$', '%.FLAC$', '%.aiff$', '%.AIFF$'},
     on_exit = function(files)
       local files_table = {}

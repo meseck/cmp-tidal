@@ -14,7 +14,7 @@ utils.get_os = function()
   end
 end
 
-utils.get_samples_path = function()
+utils.get_dirt_samples_path = function()
   local os = utils.get_os()
   local os_paths = {
     ['Darwin'] = '/Library/Application Support/SuperCollider',

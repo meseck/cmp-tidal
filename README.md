@@ -12,20 +12,26 @@ Autocompletion for [Tidal Cycles](https://tidalcycles.org/) powered by [nvim-cmp
 
 ## Installation
 
-[vim-plug](https://github.com/junegunn/vim-plug)
+### Nvim-cmp
+
+Please have a look at the offical repo [nvim-cmp](https://github.com/hrsh7th/nvim-cmp).
+
+### Cmp-tidal
+
+For [vim-plug](https://github.com/junegunn/vim-plug):
 
 ```vim
 Plug 'nvim-lua/plenary.nvim'
 Plug 'fools-mate/cmp-tidal'
 ```
 
-[packer.nvim](https://github.com/wbthomason/packer.nvim)
+For [packer.nvim](https://github.com/wbthomason/packer.nvim):
 
 ```lua
 use {'fools-mate/cmp-tidal', requires = 'nvim-lua/plenary.nvim'}
 ```
 
-[hoogle](http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hoogle)
+### [Hoogle](http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hoogle)
 
 ```sh
 cabal install hoogle
@@ -34,16 +40,52 @@ hoogle generate
 
 ## Configuration
 
+### Tidal
 ```lua
 require("cmp").setup({
-    sources = {
-        { name = 'tidal' },
-        -- ...more sources
-    }
+  sources = {
+    {name = 'tidal'},
+    -- ...more sources
+  }
+})
+```
+
+### Samples
+
+```lua
+require("cmp").setup({
+  sources = {
+    {name = 'tidal'},
+    {name = 'tidal_samples'},
+    -- ...more sources
+  }
+})
+```
+
+#### Options
+
+By default `tidal_samples` will use the standard installation paths for the 'Dirt Samples'. 
+You can change this by passing the absolute path to your 'Dirt Samples' folder to the `dirt_samples` option.
+
+E.g.:
+```lua
+require("cmp").setup({
+  sources = {
+    {name = 'tidal'},
+    {
+      name = 'tidal_samples',
+      option = {
+        dirt_samples = '/Users/fools-mate/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples'
+      }
+    },
+    -- ...more sources
+  }
 })
 ```
 
 ## Roadmap
 
-- [ ] Autocompletions for samples
+- [ ] New option: `custom_samples` to pass additional custom sample folders
+- [ ] Autocompletion for sample number (bd -> bd\*1)
+- [ ] Caching
 
