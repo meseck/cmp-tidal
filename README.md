@@ -89,3 +89,8 @@ require("cmp").setup({
 - [ ] Autocompletion for sample number (bd -> bd:1)
 - [ ] Caching
 
+## Ideas
+
+- New option `custom_commands` for `tidal` source to pass a list of commands that are not part of the Tidal library (e.g. {name: ..., abbr(optional): ..., description(optional): ...})
+- Autocompletion for mini-notation (https://tidalcycles.org/docs/reference/mini_notation#mini-notation-table)
+
