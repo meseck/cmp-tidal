@@ -31,7 +31,7 @@ For [packer.nvim](https://github.com/wbthomason/packer.nvim):
 use {'fools-mate/cmp-tidal', requires = 'nvim-lua/plenary.nvim'}
 ```
 
-### [Hoogle](http://hackage.haskell.org/cgi-bin/hackage-scripts/package/hoogle)
+### Hoogle
 
 ```sh
 cabal install hoogle
