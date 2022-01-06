@@ -28,7 +28,7 @@ Plug 'fools-mate/cmp-tidal'
 For [packer.nvim](https://github.com/wbthomason/packer.nvim):
 
 ```lua
-use {'fools-mate/cmp-tidal', requires = 'nvim-lua/plenary.nvim'}
+use({ "fools-mate/cmp-tidal", requires = "nvim-lua/plenary.nvim" })
 ```
 
 ### Hoogle
@@ -43,10 +43,10 @@ hoogle generate
 ### Tidal
 ```lua
 require("cmp").setup({
-  sources = {
-    {name = 'tidal'},
-    -- ...more sources
-  }
+	sources = {
+		{ name = "tidal" },
+		-- ...more sources
+	},
 })
 ```
 
@@ -54,12 +54,13 @@ require("cmp").setup({
 
 ```lua
 require("cmp").setup({
-  sources = {
-    {name = 'tidal'},
-    {name = 'tidal_samples'},
-    -- ...more sources
-  }
+	sources = {
+		{ name = "tidal" },
+		{ name = "tidal_samples" },
+		-- ...more sources
+	},
 })
+
 ```
 
 #### Options
@@ -70,16 +71,16 @@ You can change this by passing the absolute path to your 'Dirt Samples' folder t
 E.g.:
 ```lua
 require("cmp").setup({
-  sources = {
-    {name = 'tidal'},
-    {
-      name = 'tidal_samples',
-      option = {
-        dirt_samples = '/Users/fools-mate/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples'
-      }
-    },
-    -- ...more sources
-  }
+	sources = {
+		{ name = "tidal" },
+		{
+			name = "tidal_samples",
+			option = {
+				dirt_samples = "/Users/fools-mate/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples",
+			},
+		},
+		-- ...more sources
+	},
 })
 ```
 
