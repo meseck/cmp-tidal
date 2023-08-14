@@ -76,11 +76,11 @@ require("cmp").setup({
 		{
 			name = "tidal_samples",
 			option = {
-			    dirt_samples = "/Users/fools-mate/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples",
-                custom_samples = {
-                    "/Users/fools-mate/custom_samples",
-                    "/Users/fools-mate/custom_samples2"
-                },
+                            dirt_samples = "/Users/fools-mate/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples",
+                            custom_samples = {
+                                "/Users/fools-mate/custom_samples",
+                                "/Users/fools-mate/custom_samples2"
+                                },
 			},
 		},
 		-- ...more sources
