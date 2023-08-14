@@ -76,7 +76,11 @@ require("cmp").setup({
 		{
 			name = "tidal_samples",
 			option = {
-				dirt_samples = "/Users/fools-mate/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples",
+			    dirt_samples = "/Users/fools-mate/Library/Application Support/SuperCollider/downloaded-quarks/Dirt-Samples",
+                custom_samples = {
+                    "/Users/fools-mate/custom_samples",
+                    "/Users/fools-mate/custom_samples2"
+                },
 			},
 		},
 		-- ...more sources
@@ -86,7 +90,6 @@ require("cmp").setup({
 
 ## Roadmap
 
-- [ ] New option: `custom_samples` to pass additional custom sample folders
 - [ ] Autocompletion for sample number (bd -> bd:1)
 - [ ] Caching
 
